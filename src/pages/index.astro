@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const siteName = "Example";
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteName,
+  url: import.meta.env.PUBLIC_SITE_URL,
+};
+---
+
+<Layout
+  title={`${siteName} | コーポレートサイト`}
+  description="Astro × Tailwind CSS v4 × Sanity × Resend × Cloudflare Workers のテンプレートです。"
+  jsonLd={organizationJsonLd}
+>
+  <main class="mx-auto max-w-3xl px-4 py-16">
+    <h1 class="text-3xl font-bold">{siteName}</h1>
+    <p class="mt-4 text-gray-600">テンプレートの雛形ページです。</p>
+  </main>
+</Layout>

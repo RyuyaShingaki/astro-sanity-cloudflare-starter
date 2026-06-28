@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+  /* ブランドカラー・フォント等のトークンは必要最小限でここに定義する */
+  /* 例: --color-brand: oklch(0.6 0.2 250); */
+}

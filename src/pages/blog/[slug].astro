@@ -1,0 +1,40 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { sanityFetch } from "../../lib/sanity";
+import { POST_SLUGS_QUERY, POST_QUERY } from "../../lib/queries";
+import type { POST_SLUGS_QUERY_RESULT, POST_QUERY_RESULT } from "../../sanity.types";
+import { toHTML } from "@portabletext/to-html";
+
+export async function getStaticPaths() {
+  const slugs = (await sanityFetch<POST_SLUGS_QUERY_RESULT>(POST_SLUGS_QUERY)) ?? [];
+  return slugs
+    .filter((s): s is { slug: string } => Boolean(s.slug))
+    .map((s) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await sanityFetch<POST_QUERY_RESULT>(POST_QUERY, { slug });
+if (!post) return Astro.redirect("/404");
+
+const bodyHtml = post.body ? toHTML(post.body) : "";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.title,
+  datePublished: post.publishedAt,
+  dateModified: post.updatedAt ?? post.publishedAt,
+};
+---
+
+<Layout
+  title={`${post.title} | Example`}
+  description={post.excerpt ?? ""}
+  type="article"
+  jsonLd={jsonLd}
+>
+  <article class="mx-auto max-w-3xl px-4 py-16">
+    <h1 class="text-3xl font-bold">{post.title}</h1>
+    {post.publishedAt && <time class="mt-2 block text-sm text-gray-500">{post.publishedAt}</time>}
+    <div class="mt-8 leading-relaxed" set:html={bodyHtml} />
+  </article>
+</Layout>

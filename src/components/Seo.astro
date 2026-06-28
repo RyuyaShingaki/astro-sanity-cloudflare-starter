@@ -1,0 +1,41 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: "website" | "article";
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, image = "/ogp-default.png", type = "website", jsonLd } = Astro.props;
+
+const siteUrl = Astro.site?.href ?? Astro.url.origin;
+// 末尾スラッシュを除いた正規 URL
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, "") || "/", siteUrl).href;
+const ogImage = new URL(image, siteUrl).href;
+const siteName = "Example";
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+{/* Open Graph (Facebook / Instagram / TikTok が参照) */}
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content="ja_JP" />
+
+{/* X (Twitter) Card */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}

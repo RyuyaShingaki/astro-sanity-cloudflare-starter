@@ -1,0 +1,23 @@
+{
+  "name": "tirestation-studio",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "extract": "sanity schema extract",
+    "typegen": "sanity schema extract && sanity typegen generate"
+  },
+  "dependencies": {
+    "@sanity/vision": "^6.2.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "sanity": "^6.2.0",
+    "styled-components": "^6.4.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

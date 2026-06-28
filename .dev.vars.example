@@ -1,0 +1,6 @@
+# Cloudflare Workers のローカル開発用シークレット (wrangler が読み込む)
+# このファイルを .dev.vars にコピーして値を設定する。.dev.vars はコミットしない
+# 本番は `wrangler secret put <NAME>` で登録する
+
+SANITY_API_READ_TOKEN="sk..."
+RESEND_API_KEY="re_..."

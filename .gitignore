@@ -1,0 +1,46 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Astro
+.astro/
+
+# Cloudflare / wrangler
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+# wrangler types の生成物 (postinstall で再生成する)
+worker-configuration.d.ts
+
+# ビルド時の環境変数
+.env
+.env.*
+!.env.example
+
+# Claude Code
+.claude/settings.local.json
+
+# 個人メモ (git 管理外、Claude も読み込み禁止)
+notes/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
