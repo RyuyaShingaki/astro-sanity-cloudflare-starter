@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- CI (`npm run check`) の失敗を修正。ルート `tsconfig.json` の `include` が `studio/` (独自の tsconfig・依存を持つ別プロジェクト) まで型チェック対象にしており、`astro check` が `sanity` 等のモジュールを解決できずエラーになっていた。`exclude` に `studio` を追加して除外
+
 ### Added
 
 - セキュリティヘッダ + CSP を `public/_headers` で付与 (Sanity 画像 CDN を許可)。`security` rule を追加
