@@ -21,8 +21,7 @@
 
 ## 開発環境
 
-- Node.js は `.nvmrc` / `.node-version` で 22 系 LTS に固定。`nvm use` 等で合わせる
-- 環境変数は `.env.example` (公開・ビルド時) と `.dev.vars.example` (シークレット・Worker ランタイム) を複製して設定する
+Node バージョン (22 系 LTS 固定) と環境変数 (`.env` / `.dev.vars`) の詳細は [environment](.claude/rules/environment.md) を参照。
 
 ## 開発コマンド
 
@@ -58,6 +57,7 @@ npm run format         # Prettier で整形
 - typescript / eslint / prettier ... 言語・整形
 - testing ... テスト方針
 - dependencies ... vite/Node・lefthook・npm audit の注意
+- environment ... Node バージョン・環境変数の設定
 - writing ... 日本語表記
 
 ## スキル / MCP

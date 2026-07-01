@@ -16,7 +16,7 @@ Astro + Tailwind CSS v4 + Sanity + Resend を Cloudflare Workers 上で動かす
 | スタイリング   | [Tailwind CSS](https://tailwindcss.com/) v4+ |
 | 言語           | TypeScript                                   |
 | CMS            | [Sanity](https://www.sanity.io/)             |
-| ホスティング   | Cloudflare (Workers 想定)                    |
+| ホスティング   | Cloudflare Workers                           |
 | バージョン管理 | git / GitHub                                 |
 
 ## 必要環境
