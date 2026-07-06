@@ -20,8 +20,8 @@ export default tseslint.config(
   tseslint.configs.recommended,
   astro.configs.recommended,
   {
-    // 設定ファイルは Node 実行環境 (process など)
-    files: ["*.config.mjs", "*.config.js"],
+    // 設定ファイルと .claude のフックスクリプトは Node 実行環境 (process など)
+    files: ["*.config.mjs", "*.config.js", ".claude/**/*.mjs"],
     languageOptions: { globals: globals.nodeBuiltin },
   },
   prettier,

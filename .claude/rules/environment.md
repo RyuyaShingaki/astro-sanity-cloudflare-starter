@@ -1,6 +1,16 @@
 ---
 description: 開発環境 (Node バージョン・環境変数) の規約
-paths: [".nvmrc", ".node-version", ".env", ".env.*", ".dev.vars", ".dev.vars.*", "wrangler.*", "package.json"]
+paths:
+  [
+    ".nvmrc",
+    ".node-version",
+    ".env",
+    ".env.*",
+    ".dev.vars",
+    ".dev.vars.*",
+    "wrangler.*",
+    "package.json",
+  ]
 ---
 
 # 開発環境規約
