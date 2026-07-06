@@ -1,0 +1,13 @@
+# Example
+
+> コーポレート・ポートフォリオ・LP・ブログ (オウンドメディア) 構築用のサイトです。この雛形を使うときは名称・URL・各リンクを自分のサイト用に置き換えてください。
+
+## 主要ページ
+
+- [トップ](https://example.com): サイト概要
+- [ブログ](https://example.com/blog): 記事一覧 (オウンドメディア)
+
+## 補足
+
+- サイトマップ: https://example.com/sitemap-index.xml
+- 問い合わせ: https://example.com/#contact

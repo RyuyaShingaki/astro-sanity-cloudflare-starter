@@ -1,5 +1,5 @@
 {
-  "name": "tirestation-template",
+  "name": "astro-sanity-cloudflare-starter",
   "type": "module",
   "version": "0.0.1",
   "private": true,

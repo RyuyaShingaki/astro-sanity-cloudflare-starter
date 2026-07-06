@@ -10,6 +10,12 @@
 
 ### Added
 
+- ルール自動適用フック `.claude/hooks/apply-rules.mjs` (PreToolUse)。Edit / Write / MultiEdit の対象ファイルパスを `.claude/rules/` の `paths:` glob と照合し、一致したルールを `additionalContext` として注入する。Claude Code はネイティブでは `paths:` を解釈しないため、これまで「自動適用」は実際には効いていなかった。有効化には `.claude/settings.json` の `hooks.PreToolUse` に登録が必要 (CLAUDE.md に手順を記載)
+- 型安全な JSON-LD ヘルパー `src/lib/structured-data.ts` (`organization` / `website` / `breadcrumbList` / `blogPosting` / `webPage`)。実データが無い項目は出力しない。`Seo` / `Layout` を単一・配列どちらの JSON-LD も受け取れるよう拡張し、index・ブログ詳細をヘルパー経由に置き換え (`seo` rule が求める「型安全なヘルパーで生成」を満たす)
+- `public/llms.txt` (AEO 向けサイト概要。`seo` rule の推奨に対応)
+- OGP デフォルト画像 `public/ogp-default.png` (1200x630。画像を持たないページの `og:image` フォールバック。プレースホルダなので差し替え前提)
+- `.claude/settings.json` にルール自動適用フックを登録 (`hooks.PreToolUse`)
+- お問い合わせ API (`src/pages/api/contact.ts`) にスパム・不正入力対策を実装: honeypot (`company` フィールド)・Content-Type 検証・名前/メール/本文の必須と長さ上限・メール形式チェック (`security` rule の手本)
 - セキュリティヘッダ + CSP を `public/_headers` で付与 (Sanity 画像 CDN を許可)。`security` rule を追加
 - `testing` rule (テスト方針: 既定なし、Vitest / @cloudflare/vitest-pool-workers / Playwright の指針)
 - `astro` rule に画像 (`astro:assets` / `urlForImage`)・フォント・多言語 (i18n) の方針を追記
@@ -30,6 +36,9 @@
 
 ### Changed
 
+- CLAUDE.md の「rules は編集対象に応じて自動適用」という記述を実態に合わせて修正。フック方式の説明と登録手順を追記し、事故に直結する要点を「コア規約」として本体に昇格
+- `eslint.config.mjs` の Node グローバル対象に `.claude/**/*.mjs` を追加 (フックスクリプトを Lint 対象に含める)
+- `package.json` の `name` を別プロジェクト残骸 (`tirestation-template`) からリポジトリ名にそろえる
 - CLAUDE.md をスリム化し、詳細規約を `.claude/rules/` に分離
 - `eslint` / `prettier` / `typescript` の rules を本スタック (Astro) 向けに修正し、日本語表記を writing 規約 (半角括弧) にそろえる
 - `tailwind` rule にスタイル方針を追記 (独自 CSS を避けて Tailwind ユーティリティで再現、任意値を濫用せず標準スケールを優先、テーマ拡張は最小限)
