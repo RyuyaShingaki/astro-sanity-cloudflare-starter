@@ -1,13 +1,14 @@
 ---
 import "../styles/global.css";
 import Seo from "../components/Seo.astro";
+import type { JsonLd } from "../lib/structured-data";
 
 interface Props {
   title: string;
   description: string;
   image?: string;
   type?: "website" | "article";
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: JsonLd | JsonLd[];
 }
 
 const { title, description, image, type, jsonLd } = Astro.props;

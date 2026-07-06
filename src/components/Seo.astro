@@ -1,10 +1,12 @@
 ---
+import type { JsonLd } from "../lib/structured-data";
+
 interface Props {
   title: string;
   description: string;
   image?: string;
   type?: "website" | "article";
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: JsonLd | JsonLd[];
 }
 
 const { title, description, image = "/ogp-default.png", type = "website", jsonLd } = Astro.props;
@@ -14,6 +16,9 @@ const siteUrl = Astro.site?.href ?? Astro.url.origin;
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, "") || "/", siteUrl).href;
 const ogImage = new URL(image, siteUrl).href;
 const siteName = "Example";
+
+// 単一でも配列でも受け取り、それぞれ独立した <script> で出力する
+const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
 <title>{title}</title>
@@ -38,4 +43,8 @@ const siteName = "Example";
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-{jsonLd && <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />}
+{
+  jsonLdList.map((data) => (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(data)} />
+  ))
+}

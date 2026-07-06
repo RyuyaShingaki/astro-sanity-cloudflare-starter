@@ -4,6 +4,7 @@ import { sanityFetch } from "../../lib/sanity";
 import { POST_SLUGS_QUERY, POST_QUERY } from "../../lib/queries";
 import type { POST_SLUGS_QUERY_RESULT, POST_QUERY_RESULT } from "../../sanity.types";
 import { toHTML } from "@portabletext/to-html";
+import { blogPosting, breadcrumbList } from "../../lib/structured-data";
 
 export async function getStaticPaths() {
   const slugs = (await sanityFetch<POST_SLUGS_QUERY_RESULT>(POST_SLUGS_QUERY)) ?? [];
@@ -17,23 +18,33 @@ const post = await sanityFetch<POST_QUERY_RESULT>(POST_QUERY, { slug });
 if (!post) return Astro.redirect("/404");
 
 const bodyHtml = post.body ? toHTML(post.body) : "";
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.title,
-  datePublished: post.publishedAt,
-  dateModified: post.updatedAt ?? post.publishedAt,
-};
+
+const title = post.title ?? "無題";
+const siteUrl = Astro.site?.href ?? Astro.url.origin;
+const postUrl = new URL(`/blog/${slug}`, siteUrl).href;
+const jsonLd = [
+  blogPosting({
+    headline: title,
+    url: postUrl,
+    datePublished: post.publishedAt ?? undefined,
+    dateModified: post.updatedAt ?? post.publishedAt ?? undefined,
+    description: post.excerpt ?? undefined,
+  }),
+  breadcrumbList([
+    { name: "ブログ", url: new URL("/blog", siteUrl).href },
+    { name: title, url: postUrl },
+  ]),
+];
 ---
 
 <Layout
-  title={`${post.title} | Example`}
+  title={`${title} | Example`}
   description={post.excerpt ?? ""}
   type="article"
   jsonLd={jsonLd}
 >
   <article class="mx-auto max-w-3xl px-4 py-16">
-    <h1 class="text-3xl font-bold">{post.title}</h1>
+    <h1 class="text-3xl font-bold">{title}</h1>
     {post.publishedAt && <time class="mt-2 block text-sm text-gray-500">{post.publishedAt}</time>}
     <div class="mt-8 leading-relaxed" set:html={bodyHtml} />
   </article>
